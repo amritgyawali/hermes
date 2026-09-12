@@ -1,0 +1,10 @@
+[Unit]
+Description=Back up Postiz uploads, configuration, and deployment files
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/postiz-files-backup
+Nice=15
+IOSchedulingClass=idle

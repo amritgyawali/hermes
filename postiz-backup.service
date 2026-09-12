@@ -1,0 +1,10 @@
+[Unit]
+Description=Back up the Postiz PostgreSQL database
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/postiz-backup
+Nice=10
+IOSchedulingClass=idle

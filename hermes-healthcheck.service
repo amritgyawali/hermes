@@ -1,0 +1,7 @@
+[Unit]
+Description=Check the local Hermes API health endpoint
+After=hermes-gateway.service
+
+[Service]
+Type=oneshot
+ExecStart=/home/ubuntu/.local/bin/hermes-healthcheck

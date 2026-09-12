@@ -1,0 +1,58 @@
+# Resource-conscious Hermes Agent configuration for the Oracle A1 host.
+_config_version: 39
+
+database:
+  journal_mode: "wal"
+  wal_autocheckpoint: 1000
+  journal_size_limit: 67108864
+  synchronous: NORMAL
+
+runtime:
+  nofile_soft_limit: 4096
+
+model:
+  default: "auto"
+  provider: "custom"
+  base_url: "http://127.0.0.1:20128/v1"
+  api_key: "${OPENAI_API_KEY}"
+  context_length: 128000
+
+agent:
+  reasoning_effort: "medium"
+  tool_use_enforcement: "auto"
+  execution_guidance: "auto"
+
+terminal:
+  backend: "docker"
+  docker_image: "nikolaik/python-nodejs:python3.11-nodejs20"
+  docker_mount_cwd_to_workspace: false
+  docker_run_as_host_user: false
+  docker_forward_env: []
+  docker_volumes: []
+  docker_network: true
+  container_cpu: 0.75
+  container_memory: 1024
+  container_disk: 8192
+  container_persistent: false
+  docker_persist_across_processes: false
+  docker_orphan_reaper: true
+  timeout: 180
+  lifetime_seconds: 900
+
+updates:
+  pre_update_backup: "full"
+  backup_keep: 5
+  non_interactive_local_changes: "stash"
+
+context_file_max_chars: 50000
+file_read_max_chars: 100000
+
+skills:
+  guard_agent_created: true
+  write_approval: true
+
+memory:
+  memory_enabled: true
+  user_profile_enabled: true
+  memory_char_limit: 2200
+  user_char_limit: 1375

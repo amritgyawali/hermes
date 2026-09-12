@@ -1,0 +1,48 @@
+services:
+  postiz:
+    mem_limit: 3584m
+    mem_reservation: 1024m
+    cpus: 1.25
+    pids_limit: 512
+
+  temporal-elasticsearch:
+    mem_limit: 768m
+    mem_reservation: 384m
+    cpus: 0.50
+    pids_limit: 256
+
+  temporal:
+    mem_limit: 768m
+    mem_reservation: 256m
+    cpus: 0.75
+    pids_limit: 300
+
+  temporal-postgresql:
+    mem_limit: 384m
+    mem_reservation: 96m
+    cpus: 0.35
+    pids_limit: 150
+
+  postiz-postgres:
+    mem_limit: 384m
+    mem_reservation: 96m
+    cpus: 0.35
+    pids_limit: 150
+
+  postiz-redis:
+    mem_limit: 192m
+    mem_reservation: 32m
+    cpus: 0.20
+    pids_limit: 100
+
+  temporal-ui:
+    mem_limit: 128m
+    mem_reservation: 16m
+    cpus: 0.15
+    pids_limit: 100
+
+  temporal-admin-tools:
+    mem_limit: 64m
+    mem_reservation: 8m
+    cpus: 0.10
+    pids_limit: 50

@@ -1,0 +1,10 @@
+[Unit]
+Description=Weekly Postiz file backup
+
+[Timer]
+OnCalendar=Sun *-*-* 03:10:00 UTC
+RandomizedDelaySec=15m
+Persistent=true
+
+[Install]
+WantedBy=timers.target

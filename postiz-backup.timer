@@ -1,0 +1,10 @@
+[Unit]
+Description=Daily Postiz PostgreSQL backup
+
+[Timer]
+OnCalendar=*-*-* 02:20:00 UTC
+RandomizedDelaySec=10m
+Persistent=true
+
+[Install]
+WantedBy=timers.target

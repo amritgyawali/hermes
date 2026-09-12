@@ -1,0 +1,52 @@
+hermes.digitalamritomni.duckdns.org {
+	tls {
+		client_auth {
+			mode require_and_verify
+			trust_pool file {
+				pem_file /etc/caddy/sites/hermes-client-ca.crt
+			}
+		}
+	}
+
+	encode zstd gzip
+
+	header {
+		-Server
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "DENY"
+		Referrer-Policy "no-referrer"
+		Permissions-Policy "camera=(), geolocation=(), microphone=(self), payment=(), usb=()"
+		Cross-Origin-Opener-Policy "same-origin"
+		Cross-Origin-Resource-Policy "same-origin"
+	}
+
+	@private path /api/* /auth/*
+	header @private Cache-Control "no-store"
+
+	request_body {
+		max_size 32MB
+	}
+
+	log {
+		format filter {
+			request>uri query {
+				replace code REDACTED
+				replace state REDACTED
+				replace token REDACTED
+				replace access_token REDACTED
+				replace refresh_token REDACTED
+			}
+		}
+	}
+
+	reverse_proxy 172.18.0.1:9119 {
+		fail_duration 30s
+		max_fails 3
+		unhealthy_status 5xx
+		transport http {
+			dial_timeout 5s
+			response_header_timeout 60s
+		}
+	}
+}

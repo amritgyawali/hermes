@@ -1,0 +1,7 @@
+[Unit]
+Description=Check the authenticated Hermes dashboard backend
+After=hermes-dashboard.service
+
+[Service]
+Type=oneshot
+ExecStart=/home/ubuntu/.local/bin/hermes-dashboard-healthcheck

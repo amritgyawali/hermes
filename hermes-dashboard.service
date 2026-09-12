@@ -1,0 +1,44 @@
+[Unit]
+Description=Hermes Agent authenticated web dashboard
+After=network-online.target
+Wants=network-online.target
+StartLimitIntervalSec=300
+StartLimitBurst=10
+
+[Service]
+Type=simple
+WorkingDirectory=/home/ubuntu/.hermes/hermes-agent
+Environment=HERMES_HOME=/home/ubuntu/.hermes
+Environment=PATH=/home/ubuntu/.hermes/node/bin:/home/ubuntu/.hermes/bin:/home/ubuntu/.local/bin:/usr/local/bin:/usr/bin:/bin
+EnvironmentFile=/home/ubuntu/.hermes/.env
+ExecStartPre=/usr/bin/test -f /home/ubuntu/.hermes/hermes-agent/hermes_cli/web_dist/index.html
+ExecStart=/home/ubuntu/.local/bin/hermes dashboard --host 172.18.0.1 --port 9119 --no-open --skip-build
+Restart=always
+RestartSec=10s
+KillMode=mixed
+TimeoutStopSec=70
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+RestrictRealtime=true
+LockPersonality=true
+SystemCallArchitectures=native
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+SystemCallFilter=~@mount @reboot @swap @module @raw-io
+MemoryAccounting=true
+MemoryHigh=1G
+MemoryMax=1280M
+MemorySwapMax=1G
+CPUAccounting=true
+CPUQuota=75%
+CPUWeight=50
+IOAccounting=true
+IOWeight=50
+TasksMax=256
+LimitNOFILE=4096
+OOMPolicy=stop
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=default.target
