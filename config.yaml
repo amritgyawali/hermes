@@ -11,10 +11,10 @@ runtime:
   nofile_soft_limit: 4096
 
 model:
-  default: "auto"
+  default: "qwen3.8-flash"
   provider: "custom"
-  base_url: "http://127.0.0.1:20128/v1"
-  api_key: "${OPENAI_API_KEY}"
+  base_url: "https://api.b.ai/v1"
+  api_key: "${B_AI_API_KEY}"
   context_length: 128000
 
 agent:
